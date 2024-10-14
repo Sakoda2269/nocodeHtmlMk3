@@ -1,0 +1,15 @@
+.buttonStyle {
+    height: 120px;
+    margin: 20px;
+}
+
+.full {
+    height: 100%;
+    width: 100%;
+}
+
+.leftRight {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
