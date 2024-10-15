@@ -1,6 +1,13 @@
+.header {
+    height: 7vh;
+    background-color: darkgray;
+    display: flex;
+}
+
+
 .all {
     display: flex;
-    height: 100vh;
+    height: 93vh;
     overflow: hidden;
 }
 
@@ -22,8 +29,11 @@
 
 .left {
     background-color: aqua;
-    display: flex;
     width: 15%;
+}
+
+.leftContainer {
+    display: flex;
     align-items: center; /* 水平方向の中央配置 */
     justify-content: flex-start;
     flex-direction: column;
