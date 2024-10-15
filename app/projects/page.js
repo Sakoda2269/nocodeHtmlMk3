@@ -35,6 +35,9 @@ export default function Projects(){
 
     return (
         <div>
+            <div style={{margin: "20px"}}>
+                <h2>プロジェクト一覧</h2>
+            </div>
             <div className="row" style={{margin: "30px"}}>
                 <button className={`btn btn-secondary col-2 ${styles.buttonStyle}`} onClick={() => {setFormOpen(true)}}>新規作成</button>
                 {projects.map((value) => (
