@@ -4,34 +4,48 @@ import Popup from "@/components/popup";
 import Link from "next/link";
 import { useEffect, useState } from "react"
 import styles from "./page.module.css";
+import useFetchGet from "@/hooks/useFetchGet";
 
 export default function Projects(){
-
+    const {data, loading, error} = useFetchGet("/api/projects")
     const [projects, setProjects] = useState([]);
     const [formOpen, setFormOpen] = useState(false);
     const [newProjectTitle, setNewProjectTitle] = useState("");
 
     useEffect(() => {
-        const getProjects = async () => {
-            const res = await fetch("/api/projects", {method: "GET"});
-            setProjects(await res.json())
-        };
-        getProjects();
-    }, []);
+        if(!loading) {
+            setProjects(data);
+        }
+    }, [loading]);
 
     const createPrject = async () => {
+        const sid = self.crypto.randomUUID();
+        const project = {
+            title: newProjectTitle, 
+            screens: {
+                [sid]: {
+                    title: "screen1",
+                    components: {}
+                }
+            }
+        }
+
         const res = await fetch("/api/projects", {
             method: "POST", 
-            body: JSON.stringify({title: newProjectTitle}), 
+            body: JSON.stringify(project), 
             headers: {
                 'Content-Type': 'application/json'
             }});
         const json = await res.json();
         const newId = json.id;
-        setProjects([...projects, {_id: newId, title: newProjectTitle}]);
+        setProjects([...projects, {_id: newId, ...project}]);
         setFormOpen(false);
         setNewProjectTitle("");
     }
+
+    if (loading) return <p>Loading...</p>
+    if (error) return <p>{error.message}</p>
+
 
     return (
         <div>
