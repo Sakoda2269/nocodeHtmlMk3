@@ -9,30 +9,8 @@ import { CenterBody, Sidebar, SideBody, SideIcon, SideItem } from "@/components/
 export default function Project({params}) {
     
     const {data, loading, error} = useFetchGet(`/api/projects/${params.pid}`)
-    const [open, setOpen] = useState(0);
     const [project, setProject] = useState(data);
 
-    useEffect(() => {
-        console.log(data);
-    }, [loading])
-    
-    const leftClass = {
-        true: `${styles.container} ${styles.left}`,
-        false: `${styles.container} ${styles.leftClose}`
-    }
-
-    const buttonClass = {
-        true: "btn btn-secondary",
-        false: "btn border-secondary"
-    }
-    
-    const openMenubar = (num) => {
-        if(open != num) {
-            setOpen(num);
-        }else {
-            setOpen(0);
-        }
-    }
 
     if(loading) return <p>Loading...</p>
     if(error) return <p>{error.message}</p>
