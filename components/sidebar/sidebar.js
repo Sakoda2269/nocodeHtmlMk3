@@ -49,9 +49,9 @@ export function Sidebar({children}) {
                         return null;
                     })}
                 </div>
-            </div>
-            <div className={`${styles.container} ${styles.center}`}>
-                {center}
+                <div className={`${styles.container} ${styles.center}`}>
+                    {center}
+                </div>
             </div>
         </div>
     )
