@@ -4,6 +4,7 @@ import styles from "./page.module.css"
 import { useEffect, useState } from "react";
 import { FaPlus, FaDatabase, FaLayerGroup  } from "react-icons/fa6";
 import useFetchGet from "@/hooks/useFetchGet";
+import { CenterBody, Sidebar, SideBody, SideIcon, SideItem } from "@/components/sidebar/sidebar";
 
 export default function Project({params}) {
     
@@ -40,54 +41,49 @@ export default function Project({params}) {
         <div>
             <div className={`${styles.header}`}>
             </div>
-            <div className={`${styles.all}`}>
-                <div className={`${styles.leftIcons}`}>
-                    <div>
-                        <button className={buttonClass[open == 1]} onClick={() => {openMenubar(1)}}>
-                            <FaLayerGroup />
-                        </button>
-                    </div>
-                    <div>
-                        <button className={buttonClass[open == 2]} onClick={() => {openMenubar(2)}}>
-                            <FaPlus />
-                        </button>
-                    </div>
-                    <div>
-                        <button className={buttonClass[open == 3]} onClick={() => {openMenubar(3)}}>
-                            <FaDatabase />
-                        </button>
-                    </div>
-                </div>
-                <div className={`${leftClass[open!=0]}`}>
-                    {open == 1 && 
+            <Sidebar>
+                <SideItem>
+                    <SideIcon>
+                        <FaLayerGroup />
+                    </SideIcon>
+                    <SideBody>
                         <div className={`${styles.leftContainer}`}>
 
                         </div>
-                    }
-                    {open == 2 && 
-                        <div className={`${styles.leftContainer}`}>
-                            <span style={{width: "80%"}}>
-                                <button style={{width: "100%"}}>hello</button>
-                            </span>
-                            <span style={{width: "80%"}}>
-                                <button style={{width: "100%"}}>hello</button>
-                            </span>
-                            <span style={{width: "80%"}}>
-                                <button style={{width: "100%"}}>hello</button>
-                            </span>
-                        </div>
-                    } 
-                    {open == 3 && 
-                        <div className={`${styles.leftContainer}`}>
-                            good
-                        </div>
-                    } 
-                </div>
+                    </SideBody>
+                </SideItem>
 
-                <div className={`${styles.container} ${styles.center}`}>
+                <SideItem>
+                    <SideIcon>
+                        <FaPlus />
+                    </SideIcon>
+                    <SideBody>
+                        <span style={{width: "80%"}}>
+                            <button style={{width: "100%"}}>hello</button>
+                        </span>
+                        <span style={{width: "80%"}}>
+                            <button style={{width: "100%"}}>hello</button>
+                        </span>
+                        <span style={{width: "80%"}}>
+                            <button style={{width: "100%"}}>hello</button>
+                        </span>
+                    </SideBody>
+                </SideItem>
+
+                <SideItem>
+                    <SideIcon>
+                        <FaDatabase />
+                    </SideIcon>
+                    <SideBody>
+                        good
+                    </SideBody>
+                </SideItem>
+
+                <CenterBody>
                     <Canvas />
-                </div>
-            </div>
+                </CenterBody>
+
+            </Sidebar>
         </div>
     )
 }
