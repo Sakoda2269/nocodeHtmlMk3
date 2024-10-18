@@ -25,7 +25,7 @@ export default function Projects(){
             screens: {
                 [sid]: {
                     title: "screen1",
-                    components: {}
+                    components: []
                 }
             }
         }

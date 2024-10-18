@@ -1,0 +1,8 @@
+.absolute {
+    position: absolute;
+}
+
+.vertical {
+    display: flexbox;
+    flex-direction: column;
+}

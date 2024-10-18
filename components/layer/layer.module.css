@@ -2,8 +2,22 @@
     display: grid;
     justify-items: flex-end;
 }
+
 .screenButton {
-    width: 80%;
-    border: 0px solid #111111;
+    width: 100%;
     background-color: rgb(202, 201, 201);
+}
+
+.elementButton {
+    width: 100%;
+    border: 0px solid #111111;
+    background-color: rgb(255, 255, 255);
+}
+
+.selecting {
+    border: 3px solid black;
+}
+
+.notSelecting {
+    border: 1px solid black;
 }
