@@ -5,11 +5,18 @@ import { useEffect, useState } from "react";
 import { FaPlus, FaDatabase, FaLayerGroup, FaGear } from "react-icons/fa6";
 import useFetchGet from "@/hooks/useFetchGet";
 import { CenterBody, Sidebar, SideBody, SideIcon, SideItem } from "@/components/sidebar/sidebar";
+import Layer from "@/components/layer/layer";
 
 export default function Project({params}) {
     
     const {data, loading, error} = useFetchGet(`/api/projects/${params.pid}`)
-    const [project, setProject] = useState(data);
+    const [project, setProject] = useState({});
+
+    useEffect(() => {
+        if(!loading) {
+            setProject(data);
+        }
+    }, [loading])
 
 
     if(loading) return <p>Loading...</p>
@@ -31,8 +38,7 @@ export default function Project({params}) {
                         <FaLayerGroup />
                     </SideIcon>
                     <SideBody>
-                        <div className={`${styles.leftContainer}`}>
-                        </div>
+                        <Layer screens={project.screens}/>
                     </SideBody>
                 </SideItem>
 
