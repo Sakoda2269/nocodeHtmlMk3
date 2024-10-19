@@ -4,9 +4,10 @@ import styles from "./page.module.css"
 import { useEffect, useState } from "react";
 import { FaPlus, FaDatabase, FaLayerGroup, FaGear } from "react-icons/fa6";
 import useFetchGet from "@/hooks/useFetchGet";
-import { CenterBody, Sidebar, SideBody, SideIcon, SideItem } from "@/components/sidebar/sidebar";
+import { CenterBody, RightBody, Sidebar, SideBody, SideIcon, SideItem } from "@/components/sidebar/sidebar";
 import Layer from "@/components/layer/layer";
 import ComponentsList from "@/components/screen_component/components";
+import PropertyArea from "@/components/propertyArea/propertyArea";
 
 export default function Project({params}) {
     
@@ -15,6 +16,7 @@ export default function Project({params}) {
 
     const [selectingScreenId, setSelectingScreenId] = useState("");
     const [currentContainerPath, setCurrentContainerPath] = useState("components");
+    const [selectingComponent, setSelectingComponent] = useState(""); 
 
     useEffect(() => {
         if(!loading) {
@@ -28,8 +30,11 @@ export default function Project({params}) {
         const containerPath = currentContainerPath.split("/");
         let nowContainer = project.screens[selectingScreenId];
         console.log(nowContainer, containerPath)
-        containerPath.map((path) => {
+        containerPath.map((path, index) => {
             nowContainer = nowContainer[path];
+            if(index != 0) {
+                nowContainer = nowContainer.data.children;
+            }
         });
         nowContainer.push(newComponent);
         setProject({...project});
@@ -61,6 +66,7 @@ export default function Project({params}) {
                             setCurrentContainerPath={setCurrentContainerPath}
                             currentContainerPath={currentContainerPath}
                             setSelectingScreenId={setSelectingScreenId}
+                            setSelectingComponent={setSelectingComponent}
                         />
                     </SideBody>
                 </SideItem>
@@ -101,6 +107,14 @@ export default function Project({params}) {
                 <CenterBody>
                     {selectingScreenId && <Canvas currentScreen={project.screens[selectingScreenId].components}/>}
                 </CenterBody>
+
+                <RightBody>
+                    <PropertyArea 
+                        selectingCopmponent={selectingComponent}
+                        selectingScreenId={selectingScreenId}
+                        project={project}
+                    />
+                </RightBody>
 
             </Sidebar>
         </div>

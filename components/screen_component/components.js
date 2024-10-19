@@ -148,7 +148,14 @@ export function ComponentWrapper({children, bounds, layout}) {
 
     const onSelect = (e) => {
         e.preventDefault();
-        alert("hello");
+    }
+
+    const rigthClick = (e) => {
+        e.preventDefault();
+        setRightClickPos({
+            x: e.pageX,
+            y: e.pageY
+        })
     }
 
     return (
@@ -161,6 +168,7 @@ export function ComponentWrapper({children, bounds, layout}) {
                 position: layout
             }}
             onClick={onSelect}
+            onContextMenu={rigthClick}
         >
             {children}
         </span>

@@ -8,6 +8,7 @@ export function Sidebar({children}) {
 
     const childrenArray = React.Children.toArray(children);
     const center = childrenArray.find((child) => React.isValidElement(child) && child.type == CenterBody);
+    const right = childrenArray.find((child) => React.isValidElement(child) && child.type == RightBody);
     const sideItems = childrenArray.filter((child) => React.isValidElement(child) && child.type == SideItem);
     const sideIcons = [];
     const sideBodies = [];    
@@ -52,6 +53,9 @@ export function Sidebar({children}) {
                 <div className={`${styles.container} ${styles.center}`}>
                     {center}
                 </div>
+                <div className={`${styles.right}`}>
+                    {right}
+                </div>
             </div>
         </div>
     )
@@ -72,4 +76,8 @@ export function SideBody({children}) {
 
 export function CenterBody({children}) {
     return <>{children}</>
+}
+
+export function RightBody({children}) {
+    return<>{children}</>
 }

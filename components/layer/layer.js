@@ -5,7 +5,7 @@ import { Collapse } from "react-bootstrap";
 import { containerComponents } from "../screen_component/components";
 
 
-export default function Layer({screens, setCurrentContainerPath, currentContainerPath}) {
+export default function Layer({screens, setCurrentContainerPath, currentContainerPath, setSelectingComponent}) {
 
     return(
         <div style={{width: "100%", height: "100vh", overflow: "auto"}}>
@@ -21,6 +21,7 @@ export default function Layer({screens, setCurrentContainerPath, currentContaine
                     containerPath={"components"}
                     setCurrentContainerPath={setCurrentContainerPath}
                     currentContainerPath={currentContainerPath}
+                    setSelectingComponent={setSelectingComponent}
                     key={key}
                 />
             ))}
@@ -29,13 +30,20 @@ export default function Layer({screens, setCurrentContainerPath, currentContaine
 
 }
 
-function ContainerLayer({name, container, depth, containerPath, setCurrentContainerPath, currentContainerPath}) {
+function ContainerLayer({name, container, depth, containerPath, setCurrentContainerPath, currentContainerPath,
+    setSelectingComponent
+}) {
 
     const [open, setOpen] = useState(true);
 
     const selectContainer = () => {
         setOpen(!open);
         setCurrentContainerPath(containerPath);
+        setSelectingComponent(containerPath);
+    }
+
+    const selectElement = (number) => {
+        setSelectingComponent(`${containerPath}/${number}`)
     }
 
     return(
@@ -59,9 +67,10 @@ function ContainerLayer({name, container, depth, containerPath, setCurrentContai
                                         name={value.data.name} 
                                         container={value.data.children}
                                         depth={depth + 1}
-                                        containerPath={`${containerPath}/${index}/data/children`}
+                                        containerPath={`${containerPath}/${index}`}
                                         setCurrentContainerPath={setCurrentContainerPath}
                                         currentContainerPath={currentContainerPath}
+                                        setSelectingComponent={setSelectingComponent}
                                         key={index}
                                     />)
                                 } else {
@@ -69,6 +78,7 @@ function ContainerLayer({name, container, depth, containerPath, setCurrentContai
                                         <div key={index} className={`${styles.layerContainer}`}>
                                             <button 
                                                 className={`${styles.elementButton}`}
+                                                onClick={() => selectElement(index)}
                                             >
                                                 {value.data.name}
                                             </button>
