@@ -1,12 +1,16 @@
-import {componentMap} from "./../components";
+import {componentMap, ComponentWrapper} from "./../components";
 import styles from "./container.module.css"
 
 export function AbsoluteContainer({data}){
     return (
         <div className={`${styles.absolute}`}>
-            {data.cihldren.map((component, index) => {
+            {data.children.map((component, index) => {
                 const Comp = componentMap[component.type];
-                <Comp key={index} data={component.data}/>
+                return(
+                    <ComponentWrapper key={index} bounds={component.data.bounds} layout="absolute">
+                       <Comp data={component.data}/>
+                    </ComponentWrapper>
+                );
             })}
         </div>
     )

@@ -10,15 +10,15 @@
     display: flex;
     justify-content: center; /* 水平方向に中央揃え */
     align-items: center;
-    position: relative;
 }
 
 .canvas {
     height: 90%;
     aspect-ratio: 16/ 9;
     background-color: white;
-    position: absolute;
+    position: relative;
     transform-origin: top left;
+    overflow: hidden;
 }
 
 .footer {

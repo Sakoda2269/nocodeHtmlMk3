@@ -1,11 +1,11 @@
 import { componentMap } from "./../components";
 
 export function Button({ data }) {
-    return (<button>{data.text}</button>)
+    return (<button style={{width: "100%", height: "100%"}}>{data.text}</button>)
 }
 
 export function Text({ data }) {
-    return (<span>{data.text}</span>)
+    return (<span style={{width: "100%", height: "100%"}}>{data.text}</span>)
 }
 
 export function TextInput() {

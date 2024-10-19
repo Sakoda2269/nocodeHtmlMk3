@@ -61,7 +61,7 @@ export default function Project({params}) {
                             setCurrentContainerPath={setCurrentContainerPath}
                             currentContainerPath={currentContainerPath}
                             setSelectingScreenId={setSelectingScreenId}
-                            />
+                        />
                     </SideBody>
                 </SideItem>
 
@@ -99,7 +99,7 @@ export default function Project({params}) {
                 </SideItem>
 
                 <CenterBody>
-                    <Canvas />
+                    {selectingScreenId && <Canvas currentScreen={project.screens[selectingScreenId].components}/>}
                 </CenterBody>
 
             </Sidebar>

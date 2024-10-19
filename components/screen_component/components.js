@@ -38,7 +38,14 @@ function Elements({addComponent}) {
                 type: type, 
                 data: {
                     id: id,
-                    name: type
+                    name: type,
+                    text: "hello",
+                    bounds: {
+                        x: 0,
+                        y: 0,
+                        w: 100,
+                        h: 30
+                    }
                 }
             })
     }
@@ -89,7 +96,13 @@ function Contaienrs({addComponent}) {
                 data: {
                     id: id,
                     name: type,
-                    children: []
+                    children: [],
+                    bounds: {
+                        x: 10,
+                        y: 10,
+                        w: 100,
+                        h: 100
+                    }
                 }
             })
     }
@@ -129,4 +142,28 @@ function Contaienrs({addComponent}) {
             </Collapse>
         </div>
     )
+}
+
+export function ComponentWrapper({children, bounds, layout}) {
+
+    const onSelect = (e) => {
+        e.preventDefault();
+        alert("hello");
+    }
+
+    return (
+        <span style={{
+                border: "1px solid black", 
+                left: `${bounds.x}px`,
+                top: `${bounds.y}px`,
+                width: `${bounds.w}px`,
+                height: `${bounds.h}px`,
+                position: layout
+            }}
+            onClick={onSelect}
+        >
+            {children}
+        </span>
+    )
+
 }

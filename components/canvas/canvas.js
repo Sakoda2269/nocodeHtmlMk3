@@ -1,9 +1,11 @@
 "use client"
 
-import { useState } from "react"
-import styles from "./canvas.module.css"
+import { useState } from "react";
+import styles from "./canvas.module.css";
 
-export default function Canvas() {
+import { componentMap, ComponentWrapper } from "../screen_component/components";
+
+export default function Canvas({currentScreen}) {
     
     const [scale, setScale] = useState(100);
     
@@ -11,9 +13,17 @@ export default function Canvas() {
         <div className={`${styles.all}`}>
             <div className={`${styles.canvasContaienr}`}>
                 <div className={`${styles.canvas}`}
-                 style={{transform: `scale(${(scale / 100)})`}}>
-                    
-                 </div>
+                    style={{transform: `scale(${(scale / 100)})`}}
+                >
+                    {Object.entries(currentScreen).map(([key, value]) => {
+                        const Comp = componentMap[value.type];
+                        return (
+                            <ComponentWrapper key={key} bounds={value.data.bounds} layout="absolute">
+                                <Comp data={value.data}/>
+                            </ComponentWrapper>
+                        )
+                    })}
+                </div>
             </div>
             <div className={`${styles.footer}`}>
                 <div style={{paddingLeft: "30px"}}>
