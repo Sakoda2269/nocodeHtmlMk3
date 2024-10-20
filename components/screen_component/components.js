@@ -1,8 +1,10 @@
 import { Collapse } from "react-bootstrap";
 import { AbsoluteContainer, HorizonContainer, VerticalContainer } from "./container/container";
 import { Button, Text, TextInput } from "./element/element";
-import { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./components.module.css"
+import SetSelectingComponentContext from "@/contexts/setSelectingComponentContext";
+import SetCurrentContainerPathContext from "@/contexts/setCurrentContainerPathContext";
 
 export const componentMap ={
     "AbsoluteContainer": AbsoluteContainer,
@@ -144,10 +146,23 @@ function Contaienrs({addComponent}) {
     )
 }
 
-export function ComponentWrapper({children, bounds, layout}) {
+export function ComponentWrapper({children, bounds, layout, componentPath, data, type}) {
+
+    const {setSelectingComponent} = useContext(SetSelectingComponentContext);
+    const {setCurrentContainerPath} = useContext(SetCurrentContainerPathContext);
+
+    const newChildren = React.Children.map(children, child => {
+        return React.cloneElement(child, {data: data, componentPath: componentPath})
+    })
 
     const onSelect = (e) => {
         e.preventDefault();
+        e.stopPropagation();
+        setSelectingComponent(componentPath);
+        console.log(type)
+        if(containerComponents.has(type)) {
+            setCurrentContainerPath(componentPath);
+        }
     }
 
     const rigthClick = (e) => {
@@ -170,7 +185,7 @@ export function ComponentWrapper({children, bounds, layout}) {
             onClick={onSelect}
             onContextMenu={rigthClick}
         >
-            {children}
+            {newChildren}
         </span>
     )
 

@@ -8,6 +8,8 @@ import { CenterBody, RightBody, Sidebar, SideBody, SideIcon, SideItem } from "@/
 import Layer from "@/components/layer/layer";
 import ComponentsList from "@/components/screen_component/components";
 import PropertyArea from "@/components/propertyArea/propertyArea";
+import SetSelectingComponentContext from "@/contexts/setSelectingComponentContext";
+import SetCurrentContainerPathContext from "@/contexts/setCurrentContainerPathContext";
 
 export default function Project({params}) {
     
@@ -51,10 +53,10 @@ export default function Project({params}) {
     
     return (
         <div>
-            <div className={`${styles.header}`}>
+        <SetSelectingComponentContext.Provider value={{setSelectingComponent}}>
+        <SetCurrentContainerPathContext.Provider value={{setCurrentContainerPath}}>            <div className={`${styles.header}`}>
             </div>
             <Sidebar>
-                {/* レイヤー */}
                 <SideItem>
                     <SideIcon>
                         <FaLayerGroup />
@@ -71,7 +73,6 @@ export default function Project({params}) {
                     </SideBody>
                 </SideItem>
 
-                {/* コンポーネント追加 */}
                 <SideItem>
                     <SideIcon>
                         <FaPlus />
@@ -84,7 +85,6 @@ export default function Project({params}) {
                     </SideBody>
                 </SideItem>
                 
-                {/* データベース */}
                 <SideItem>
                     <SideIcon>
                         <FaDatabase />
@@ -94,7 +94,6 @@ export default function Project({params}) {
                     </SideBody>
                 </SideItem>
                 
-                {/* プロジェクト設定 */}
                 <SideItem>
                     <SideIcon>
                         <FaGear />
@@ -105,7 +104,11 @@ export default function Project({params}) {
                 </SideItem>
 
                 <CenterBody>
-                    {selectingScreenId && <Canvas currentScreen={project.screens[selectingScreenId].components}/>}
+                    {selectingScreenId && 
+                        <Canvas 
+                            currentScreen={project.screens[selectingScreenId].components}
+                        />
+                    }
                 </CenterBody>
 
                 <RightBody>
@@ -117,6 +120,8 @@ export default function Project({params}) {
                 </RightBody>
 
             </Sidebar>
+        </SetCurrentContainerPathContext.Provider>
+        </SetSelectingComponentContext.Provider>
         </div>
     )
 }

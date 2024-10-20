@@ -1,11 +1,12 @@
 "use client"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import styles from "./layer.module.css";
 import { Collapse } from "react-bootstrap";
 import { containerComponents } from "../screen_component/components";
+import SetSelectingComponentContext from "@/contexts/setSelectingComponentContext";
 
 
-export default function Layer({screens, setCurrentContainerPath, currentContainerPath, setSelectingComponent}) {
+export default function Layer({screens, setCurrentContainerPath, currentContainerPath}) {
 
     return(
         <div style={{width: "100%", height: "100vh", overflow: "auto"}}>
@@ -21,7 +22,6 @@ export default function Layer({screens, setCurrentContainerPath, currentContaine
                     containerPath={"components"}
                     setCurrentContainerPath={setCurrentContainerPath}
                     currentContainerPath={currentContainerPath}
-                    setSelectingComponent={setSelectingComponent}
                     key={key}
                 />
             ))}
@@ -30,11 +30,12 @@ export default function Layer({screens, setCurrentContainerPath, currentContaine
 
 }
 
-function ContainerLayer({name, container, depth, containerPath, setCurrentContainerPath, currentContainerPath,
-    setSelectingComponent
-}) {
+function ContainerLayer(
+    {name, container, depth, containerPath, setCurrentContainerPath, currentContainerPath,}
+) {
 
     const [open, setOpen] = useState(true);
+    const {setSelectingComponent} = useContext(SetSelectingComponentContext);
 
     const selectContainer = () => {
         setOpen(!open);
@@ -70,7 +71,6 @@ function ContainerLayer({name, container, depth, containerPath, setCurrentContai
                                         containerPath={`${containerPath}/${index}`}
                                         setCurrentContainerPath={setCurrentContainerPath}
                                         currentContainerPath={currentContainerPath}
-                                        setSelectingComponent={setSelectingComponent}
                                         key={index}
                                     />)
                                 } else {

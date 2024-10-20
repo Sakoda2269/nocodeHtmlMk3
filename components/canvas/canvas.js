@@ -15,11 +15,18 @@ export default function Canvas({currentScreen}) {
                 <div className={`${styles.canvas}`}
                     style={{transform: `scale(${(scale / 100)})`}}
                 >
-                    {Object.entries(currentScreen).map(([key, value]) => {
+                    {currentScreen.map((value, index) => {
                         const Comp = componentMap[value.type];
                         return (
-                            <ComponentWrapper key={key} bounds={value.data.bounds} layout="absolute">
-                                <Comp data={value.data}/>
+                            <ComponentWrapper 
+                                key={index} 
+                                bounds={value.data.bounds} 
+                                layout="absolute"
+                                componentPath={`components/${index}`}
+                                data={value.data}
+                                type={value.type}
+                            >
+                                <Comp />
                             </ComponentWrapper>
                         )
                     })}
